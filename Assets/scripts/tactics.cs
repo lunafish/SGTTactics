@@ -21,8 +21,25 @@ public class tactics : MonoBehaviour {
 
 	// picking
 	void Picking( ) {
-		if (Input.GetMouseButton (0) == true) {
-			Ray ray = Camera.main.ScreenPointToRay( Input.mousePosition );
+
+		Vector2 pos = new Vector2(0, 0);
+		bool bTouch = false;
+#if UNITY_IPHONE
+		if (Input.touchCount > 0 ) {
+			if(Input.touches[0].phase == TouchPhase.Began)
+			{
+				bTouch = true;
+				pos = Input.touches[0].position;
+			}
+		}
+#else
+		if (Input.GetMouseButtonDown(0) == true) {
+			bTouch = true;
+			pos = Input.mousePosition;
+		}
+#endif
+		if (bTouch) {
+			Ray ray = Camera.main.ScreenPointToRay( pos );
 
 			RaycastHit hit;
 			if(Physics.Raycast(ray, out hit)) {
