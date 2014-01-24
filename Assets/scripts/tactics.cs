@@ -33,7 +33,7 @@ public class tactics : MonoBehaviour {
 			}
 		}
 #else
-		if (Input.GetMouseButtonDown(0) == true) {
+		if (Input.GetMouseButtonUp(0) == true) {
 			bTouch = true;
 			pos = Input.mousePosition;
 		}

@@ -56,7 +56,19 @@ public class tacticsRule {
 			return;
 		}
 
+		// deselect all
+		for (int i = 0; i < _listTile.Count; i++) {
+			GameObject o = (GameObject)_listTile [i];
+			o.GetComponent<pawn> ().select (false);
+		}
+		//
+
+		// select
 		p.select ( true );
+		//
+
+		Camera.main.GetComponent<MobileCamera> ().move (p.transform.position);
+
 		Debug.Log ("select : " + p._index);
 	}
 }
