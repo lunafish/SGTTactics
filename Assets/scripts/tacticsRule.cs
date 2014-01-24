@@ -10,8 +10,9 @@ public class tacticsRule {
 	private ArrayList _listTile = null;
 
 	public static tacticsRule get( ) {
-		if (_rule == null)
-			_rule = new tacticsRule();
+		if (_rule == null) {
+			_rule = new tacticsRule ();
+		}
 
 		return _rule;
 	}
@@ -32,13 +33,30 @@ public class tacticsRule {
 
 				float m = (i % 2) + 1.0f;
 
+				// setting object information
 				obj.transform.position = new Vector3( (j - hw) * 2.0f + m, 0.0f, (i - hh) * 1.5f);
+				obj.GetComponent<pawn>()._x = j;
+				obj.GetComponent<pawn>()._y = i;
+				obj.GetComponent<pawn>().select( false );
+				//
 
-				_listTile.Add( obj );
+				// add object and get list index
+				obj.GetComponent<pawn>()._index = _listTile.Add( obj );
 			}
 		}
 
 
 		return true;
+	}
+
+	public void picking( GameObject obj )
+	{
+		pawn p = obj.GetComponent<pawn> ();
+		if (p == null) {
+			return;
+		}
+
+		p.select ( true );
+		Debug.Log ("select : " + p._index);
 	}
 }

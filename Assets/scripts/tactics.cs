@@ -43,7 +43,8 @@ public class tactics : MonoBehaviour {
 
 			RaycastHit hit;
 			if(Physics.Raycast(ray, out hit)) {
-				Debug.Log("Hit!" + hit.transform.gameObject);
+				// picking event
+				_rule.picking( hit.transform.gameObject );
 			}
 		}
 	}
