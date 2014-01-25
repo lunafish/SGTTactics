@@ -49,8 +49,7 @@ public class tacticsRule {
 		return true;
 	}
 
-	public void picking( GameObject obj )
-	{
+	public void picking( GameObject obj ) {
 		pawn p = obj.GetComponent<pawn> ();
 		if (p == null) {
 			return;
@@ -70,5 +69,11 @@ public class tacticsRule {
 		Camera.main.GetComponent<MobileCamera> ().move (p.transform.position);
 
 		Debug.Log ("select : " + p._index);
+	}
+
+	public void move( Vector2 vec ) {
+		Vector3 moveDir = new Vector3 (vec.x, 0.0f, vec.y);
+		Camera.main.transform.TransformDirection (moveDir);
+		Camera.main.transform.position += (moveDir * 0.1f);
 	}
 }
