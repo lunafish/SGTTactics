@@ -4,8 +4,8 @@ using System.Collections;
 public class tacticsRule {
 	
 	public static tacticsRule _rule = null;
-	public int _tile_width = 16;
-	public int _tile_height = 16;
+	public const int _tile_width = 16;
+	public const int _tile_height = 16;
 
 	private ArrayList _listTile = null;
 
@@ -37,7 +37,7 @@ public class tacticsRule {
 				obj.transform.position = new Vector3( (j - hw) * 2.0f + m, 0.0f, (i - hh) * 1.5f);
 				obj.GetComponent<tile>()._x = j;
 				obj.GetComponent<tile>()._y = i;
-				obj.GetComponent<tile>().select( false );
+				obj.GetComponent<tile>().select( tile.SELECT_NONE );
 				//
 
 				// add object and get list index
@@ -45,8 +45,74 @@ public class tacticsRule {
 			}
 		}
 
+		// make tile link
+		for (int i = 0; i < _listTile.Count; i++) {
+			GameObject obj = (GameObject)_listTile[i];
+			makeTileLink( obj.GetComponent<tile>() );
+		}
 
 		return true;
+	}
+
+	public void makeTileLink( tile obj ) {
+		int m = 1 - obj._y % 2; // hex margin
+
+		int x, y;
+		// upleft
+		y = obj._y - 1;
+		x = obj._x - m;
+		if ((x >= 0 && y >= 0) && (x < _tile_width && y < _tile_height)) {
+			GameObject o = (GameObject)(_listTile[ x + (y * _tile_width) ]);
+			obj._links[ 0 ] = o.GetComponent<tile>();
+		} else {
+			obj._links[ 0 ] = null;
+		}
+		// upright
+		y = obj._y - 1;
+		x = obj._x - m + 1;
+		if ((x >= 0 && y >= 0) && (x < _tile_width && y < _tile_height)) {
+			GameObject o = (GameObject)(_listTile[ x + (y * _tile_width) ]);
+			obj._links[ 1 ] = o.GetComponent<tile>();
+		} else {
+			obj._links[ 1 ] = null;
+		}
+		// left
+		y = obj._y;
+		x = obj._x - 1;
+		if ((x >= 0 && y >= 0) && (x < _tile_width && y < _tile_height)) {
+			GameObject o = (GameObject)(_listTile[ x + (y * _tile_width) ]);
+			obj._links[ 2 ] = o.GetComponent<tile>();
+		} else {
+			obj._links[ 2 ] = null;
+		}
+		// right
+		y = obj._y;
+		x = obj._x + 1;
+		if ((x >= 0 && y >= 0) && (x < _tile_width && y < _tile_height)) {
+			GameObject o = (GameObject)(_listTile[ x + (y * _tile_width) ]);
+			obj._links[ 3 ] = o.GetComponent<tile>();
+		} else {
+			obj._links[ 3 ] = null;
+		}
+		// downleft
+		y = obj._y + 1;
+		x = obj._x - m;
+		if ((x >= 0 && y >= 0) && (x < _tile_width && y < _tile_height)) {
+			GameObject o = (GameObject)(_listTile[ x + (y * _tile_width) ]);
+			obj._links[ 4 ] = o.GetComponent<tile>();
+		} else {
+			obj._links[ 4 ] = null;
+		}
+		// downright
+		y = obj._y + 1;
+		x = obj._x - m + 1;
+		if ((x >= 0 && y >= 0) && (x < _tile_width && y < _tile_height)) {
+			GameObject o = (GameObject)(_listTile[ x + (y * _tile_width) ]);
+			obj._links[ 5 ] = o.GetComponent<tile>();
+		} else {
+			obj._links[ 5 ] = null;
+		}
+
 	}
 
 	public void picking( GameObject obj ) {
@@ -58,13 +124,14 @@ public class tacticsRule {
 		// deselect all
 		for (int i = 0; i < _listTile.Count; i++) {
 			GameObject o = (GameObject)_listTile [i];
-			o.GetComponent<tile> ().select (false);
+			o.GetComponent<tile> ().select ( tile.SELECT_NONE );
 		}
 		//
 
 		// select
-		p.select ( true );
+		p.select ( tile.SELECT_RED );
 		//
+
 
 		Camera.main.GetComponent<MobileCamera> ().move (p.transform.position);
 
