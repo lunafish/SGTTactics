@@ -28,8 +28,8 @@ public class MobileCamera : MonoBehaviour {
 	{
 		Vector3 vec = target - transform.position;
 		vec.Normalize ();
-		_target.x = target.x - vec.x * 10.0f;
-		_target.z = target.z - vec.z * 10.0f;
+		_target.x = target.x - vec.x * 17.5f;
+		_target.z = target.z - vec.z * 17.5f;
 		_isMove = true;
 	}
 }
