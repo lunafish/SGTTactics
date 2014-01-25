@@ -29,19 +29,19 @@ public class tacticsRule {
 
 		for (int i = 0; i < _tile_height; i++) {
 			for (int j = 0; j < _tile_width; j++) {
-				GameObject obj = (GameObject)MonoBehaviour.Instantiate(Resources.Load("prefab/pawn", typeof(GameObject)));
+				GameObject obj = (GameObject)MonoBehaviour.Instantiate(Resources.Load("prefab/tile", typeof(GameObject)));
 
 				float m = (i % 2) + 1.0f;
 
 				// setting object information
 				obj.transform.position = new Vector3( (j - hw) * 2.0f + m, 0.0f, (i - hh) * 1.5f);
-				obj.GetComponent<pawn>()._x = j;
-				obj.GetComponent<pawn>()._y = i;
-				obj.GetComponent<pawn>().select( false );
+				obj.GetComponent<tile>()._x = j;
+				obj.GetComponent<tile>()._y = i;
+				obj.GetComponent<tile>().select( false );
 				//
 
 				// add object and get list index
-				obj.GetComponent<pawn>()._index = _listTile.Add( obj );
+				obj.GetComponent<tile>()._index = _listTile.Add( obj );
 			}
 		}
 
@@ -50,7 +50,7 @@ public class tacticsRule {
 	}
 
 	public void picking( GameObject obj ) {
-		pawn p = obj.GetComponent<pawn> ();
+		tile p = obj.GetComponent<tile> ();
 		if (p == null) {
 			return;
 		}
@@ -58,7 +58,7 @@ public class tacticsRule {
 		// deselect all
 		for (int i = 0; i < _listTile.Count; i++) {
 			GameObject o = (GameObject)_listTile [i];
-			o.GetComponent<pawn> ().select (false);
+			o.GetComponent<tile> ().select (false);
 		}
 		//
 

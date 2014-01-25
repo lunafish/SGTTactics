@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class pawn : MonoBehaviour {
+public class tile : MonoBehaviour {
 	public int _x;
 	public int _y;
 	public int _index;
