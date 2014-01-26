@@ -54,7 +54,7 @@ public class tacticsRule {
 		return true;
 	}
 
-	public void makeTileLink( tile obj ) {
+	void makeTileLink( tile obj ) {
 		int m = 1 - obj._y % 2; // hex margin
 
 		int x, y;
@@ -142,5 +142,19 @@ public class tacticsRule {
 		Vector3 moveDir = new Vector3 (vec.x, 0.0f, vec.y);
 		Camera.main.transform.TransformDirection (moveDir);
 		Camera.main.transform.position += (moveDir * 0.1f);
+	}
+
+	public bool makePawn( ) {
+		// test code
+		int x = Random.Range(0, _tile_width - 1);
+		int y = Random.Range(0, _tile_height - 1);
+
+		GameObject o = (GameObject)_listTile[ x + (y * _tile_width) ];
+		GameObject pawn = (GameObject)MonoBehaviour.Instantiate(Resources.Load("prefab/cursor", typeof(GameObject)));
+		o.GetComponent<tile> ().addPawn(pawn);
+
+		//
+
+		return true;
 	}
 }
