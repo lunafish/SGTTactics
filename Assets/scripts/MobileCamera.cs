@@ -26,10 +26,11 @@ public class MobileCamera : MonoBehaviour {
 
 	public void move( Vector3 target )
 	{
-		Vector3 vec = target - transform.position;
-		vec.Normalize ();
-		_target.x = target.x - vec.x * 17.5f;
-		_target.z = target.z - vec.z * 17.5f;
+		Vector3 vec = new Vector3 (0.0f, 0.0f, -1.0f);
+		transform.TransformDirection( vec );
+
+		_target.x = target.x - vec.x * 12.0f;
+		_target.z = target.z - vec.z * 12.0f;
 		_isMove = true;
 	}
 }
