@@ -44,17 +44,17 @@ MonoBehaviour:
   spriteDefinitions:
   - name: simcard
     boundsData:
-    - {x: 0, y: 0, z: 0}
+    - {x: .256249994, y: -.150000006, z: 0}
     - {x: .512499988, y: .300000012, z: 0}
     untrimmedBoundsData:
-    - {x: 0, y: 0, z: 0}
+    - {x: .256249994, y: -.150000006, z: 0}
     - {x: .512499988, y: .300000012, z: 0}
     texelSize: {x: .00312500005, y: .00312500005}
     positions:
-    - {x: -.256249994, y: -.150000006, z: 0}
-    - {x: .256249994, y: -.150000006, z: 0}
-    - {x: -.256249994, y: .150000006, z: 0}
-    - {x: .256249994, y: .150000006, z: 0}
+    - {x: 0, y: -.300000012, z: 0}
+    - {x: .512499988, y: -.300000012, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: .512499988, y: 0, z: 0}
     normals: []
     tangents: []
     uvs:
@@ -92,7 +92,7 @@ MonoBehaviour:
   loadable: 0
   invOrthoSize: 1
   halfTargetHeight: 320
-  buildKey: 1621293860
+  buildKey: 511396275
   dataGuid: c1a792b60620741798d54d5c4091a595
   managedSpriteCollection: 0
   hasPlatformData: 0
