@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class tactics : MonoBehaviour {
+	public Camera _ui_camera;
+
 	private tacticsRule _rule = null;
 
 	// for mouse
@@ -9,6 +11,10 @@ public class tactics : MonoBehaviour {
 	private Vector2 _mouse_pos;
 	private bool _mouse_move;
 	private float _mouse_margin = 5.0f;
+
+	// layer
+	private int layer_ui_0 = 0;
+	private int layer_object = 1;
 
 	// Use this for initialization
 	void Start () {
@@ -24,14 +30,16 @@ public class tactics : MonoBehaviour {
 		if (_rule == null) {
 			return;
 		}
-		// picking
-		Picking ();
 
-
+		// picking UI Object
+		if (Picking (_ui_camera, layer_ui_0) == false) {
+			// picking 3D Object
+			Picking ( Camera.main, layer_object );
+		}
 	}
 
 	// picking
-	void Picking( ) {
+	bool Picking( Camera cam, int layer ) {
 
 		Vector2 pos = new Vector2(0, 0);
 		bool bTouch = false;
@@ -95,13 +103,21 @@ public class tactics : MonoBehaviour {
 		}
 #endif
 		if (bTouch) {
-			Ray ray = Camera.main.ScreenPointToRay( pos );
+			//Debug.Log( pos );
+			Ray ray = cam.ScreenPointToRay( pos );
 
 			RaycastHit hit;
 			if(Physics.Raycast(ray, out hit)) {
 				// picking event
-				_rule.picking( hit.transform.gameObject );
+				if( layer == layer_ui_0) {
+					_rule.ui_picking( hit.transform.gameObject );
+				} else {
+					_rule.picking( hit.transform.gameObject );
+				}
+				return true;
 			}
 		}
+
+		return false;
 	}
 }

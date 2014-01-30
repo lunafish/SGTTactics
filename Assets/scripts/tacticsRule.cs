@@ -138,6 +138,10 @@ public class tacticsRule {
 		Debug.Log ("select : " + p._index);
 	}
 
+	public void ui_picking( GameObject obj ) {
+		Debug.Log ("UI : " + obj);
+	}
+
 	public void move( Vector2 vec ) {
 		Vector3 moveDir = new Vector3 (vec.x, 0.0f, vec.y);
 		Camera.main.transform.TransformDirection (moveDir);

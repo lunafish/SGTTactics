@@ -44,28 +44,65 @@ MonoBehaviour:
   spriteDefinitions:
   - name: simcard
     boundsData:
-    - {x: .256249994, y: -.150000006, z: 0}
-    - {x: .512499988, y: .300000012, z: 0}
+    - {x: .125, y: -.21875, z: 0}
+    - {x: .25, y: .4375, z: 0}
     untrimmedBoundsData:
-    - {x: .256249994, y: -.150000006, z: 0}
-    - {x: .512499988, y: .300000012, z: 0}
+    - {x: .125, y: -.21875, z: 0}
+    - {x: .25, y: .4375, z: 0}
     texelSize: {x: .00312500005, y: .00312500005}
     positions:
-    - {x: 0, y: -.300000012, z: 0}
-    - {x: .512499988, y: -.300000012, z: 0}
+    - {x: 0, y: -.4375, z: 0}
+    - {x: .25, y: -.4375, z: 0}
     - {x: 0, y: 0, z: 0}
-    - {x: .512499988, y: 0, z: 0}
+    - {x: .25, y: 0, z: 0}
     normals: []
     tangents: []
     uvs:
-    - {x: .0156328119, y: .00781640597}
-    - {x: .0156328119, y: .648433566}
-    - {x: .765617192, y: .00781640597}
-    - {x: .765617192, y: .648433566}
+    - {x: .00781640597, y: .00390820298}
+    - {x: .00781640597, y: .160154298}
+    - {x: .554683566, y: .00390820298}
+    - {x: .554683566, y: .160154298}
     indices: 000000000300000001000000020000000300000000000000
     material: {fileID: 2100000, guid: b24d9cd4325b9409692ee4deb9be3f47, type: 2}
     materialId: 0
     sourceTextureGUID: 5f137a9e6245e49c394d111655625eb0
+    extractRegion: 0
+    regionX: 0
+    regionY: 0
+    regionW: 0
+    regionH: 0
+    flipped: 1
+    complexGeometry: 0
+    colliderType: 0
+    colliderVertices: []
+    colliderIndicesFwd: 
+    colliderIndicesBack: 
+    colliderConvex: 0
+    colliderSmoothSphereCollisions: 0
+  - name: infobar
+    boundsData:
+    - {x: .5, y: -.0500000007, z: 0}
+    - {x: 1, y: .100000001, z: 0}
+    untrimmedBoundsData:
+    - {x: .5, y: -.0500000007, z: 0}
+    - {x: 1, y: .100000001, z: 0}
+    texelSize: {x: .00312500005, y: .00312500005}
+    positions:
+    - {x: 0, y: -.100000001, z: 0}
+    - {x: 1, y: -.100000001, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    normals: []
+    tangents: []
+    uvs:
+    - {x: .570316434, y: .00390820298}
+    - {x: .570316434, y: .628904283}
+    - {x: .695308566, y: .00390820298}
+    - {x: .695308566, y: .628904283}
+    indices: 000000000300000001000000020000000300000000000000
+    material: {fileID: 2100000, guid: b24d9cd4325b9409692ee4deb9be3f47, type: 2}
+    materialId: 0
+    sourceTextureGUID: a6a749e34bbb349bfb2ec21ba85cfe8f
     extractRegion: 0
     regionX: 0
     regionY: 0
@@ -92,7 +129,7 @@ MonoBehaviour:
   loadable: 0
   invOrthoSize: 1
   halfTargetHeight: 320
-  buildKey: 511396275
+  buildKey: 643190506
   dataGuid: c1a792b60620741798d54d5c4091a595
   managedSpriteCollection: 0
   hasPlatformData: 0
