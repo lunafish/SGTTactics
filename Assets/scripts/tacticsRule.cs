@@ -9,6 +9,8 @@ public class tacticsRule {
 
 	private ArrayList _listTile = null;
 
+	private tile _select = null;
+
 	public static tacticsRule get( ) {
 		if (_rule == null) {
 			_rule = new tacticsRule ();
@@ -127,7 +129,23 @@ public class tacticsRule {
 		}
 
 		if (p.isPawn () == false) {
-			return ;
+
+			if(_select != null) {
+				if(p._select == tile.SELECT_GREEN) {
+					// move
+					p.addPawn ( _select.getPawn() );
+					_select.removePawn();
+					//
+				} else {
+					return;
+				}
+			} else {
+				return;
+			}
+		} else {
+			// attack
+
+			//
 		}
 
 		// deselect all
@@ -139,6 +157,8 @@ public class tacticsRule {
 
 		// select
 		p.select ( tile.SELECT_RED );
+		_select = p;
+		message( p.getPawn().GetComponent<pawn>()._name + " seleted" );
 		//
 
 
@@ -152,8 +172,6 @@ public class tacticsRule {
 		if (s != null) {
 			GameObject p = s._pawn;
 			picking( (GameObject)_listTile[ p.GetComponent<pawn>()._index ] );
-
-			message( p.GetComponent<pawn>()._name + " seleted" );
 		}
 	}
 

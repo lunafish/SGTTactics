@@ -12,6 +12,8 @@ public class tile : MonoBehaviour {
 	public static int SELECT_RED = 1;
 	public static int SELECT_GREEN = 2;
 
+	public int _select = 0;
+
 	private GameObject _pawn = null;
 
 	// Use this for initialization
@@ -28,7 +30,7 @@ public class tile : MonoBehaviour {
 			renderer.material.color = Color.red;
 
 			for(int i = 0; i < 6; i++) {
-				if(_links[i] != null) {
+				if(_links[i] != null && _links[i].isPawn() == false) {
 					_links[i].select( tile.SELECT_GREEN );
 				}
 			}
@@ -40,6 +42,8 @@ public class tile : MonoBehaviour {
 		else if(type == tile.SELECT_NONE) {
 			renderer.material.color = Color.white;
 		}
+
+		_select = type;
 	}
 
 	public void addPawn( GameObject pawn ) {
@@ -64,5 +68,9 @@ public class tile : MonoBehaviour {
 		}
 
 		return false;
+	}
+
+	public GameObject getPawn( ) {
+		return _pawn;
 	}
 }
