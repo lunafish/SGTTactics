@@ -47,11 +47,22 @@ public class tile : MonoBehaviour {
 			removePawn();
 		}
 
+		Debug.Log ("addPawn : " + _index);
+		pawn.GetComponent<pawn>()._index = _index;
+
 		_pawn = pawn;
 		_pawn.transform.position = transform.position;
 	}
 
 	public void removePawn( ) {
 		_pawn = null;
+	}
+
+	public bool isPawn( ) {
+		if (_pawn) {
+			return true;
+		}
+
+		return false;
 	}
 }

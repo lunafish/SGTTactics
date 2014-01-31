@@ -43,10 +43,13 @@ public class tactics : MonoBehaviour {
 
 		Vector2 pos = new Vector2(0, 0);
 		bool bTouch = false;
+		Vector2 mov = new Vector2(0, 0);
 #if UNITY_IPHONE
 		if (Input.touchCount > 0 ) {
 			if(Input.touches[0].phase == TouchPhase.Began) {
 				_mouse_start_pos = Input.touches[0].position;
+				_mouse_pos = _mouse_start_pos;
+				_mouse_move = false;
 			}
 			else if(Input.touches[0].phase == TouchPhase.Moved) {
 				Vector2 v = Input.touches[0].position;
@@ -60,7 +63,7 @@ public class tactics : MonoBehaviour {
 				// mouse move event
 				if( _mouse_move == true ) {
 					Vector2 mv = Input.touches[0].position;
-					_rule.move( mv - _mouse_pos );
+					mov = mv - _mouse_pos;
 				}
 				
 				_mouse_pos = Input.touches[0].position;
@@ -76,6 +79,8 @@ public class tactics : MonoBehaviour {
 #else
 		if(Input.GetMouseButtonDown(0) == true) {
 			_mouse_start_pos = Input.mousePosition;
+			_mouse_pos = _mouse_start_pos;
+			_mouse_move = false;
 		}
 		else if(Input.GetMouseButton(0) == true) {
 			Vector2 v = Input.mousePosition;
@@ -89,7 +94,7 @@ public class tactics : MonoBehaviour {
 			// mouse move event
 			if( _mouse_move == true ) {
 				Vector2 mv = Input.mousePosition;
-				_rule.move( mv - _mouse_pos );
+				mov = mv - _mouse_pos;
 			}
 
 			_mouse_pos = Input.mousePosition;
@@ -116,6 +121,10 @@ public class tactics : MonoBehaviour {
 				}
 				return true;
 			}
+		}
+
+		if(_mouse_move == true) {
+			_rule.move( mov );
 		}
 
 		return false;

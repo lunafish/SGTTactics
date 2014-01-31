@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
+using SimpleJSON;
 using System.Collections;
 
 public class tacticsRule {
-	
 	public static tacticsRule _rule = null;
 	public const int _tile_width = 16;
 	public const int _tile_height = 16;
@@ -15,6 +15,11 @@ public class tacticsRule {
 		}
 
 		return _rule;
+	}
+
+	public static void message( string msg ) {
+		GameObject bar = GameObject.FindGameObjectWithTag("InfoBar");
+		bar.GetComponentInChildren<TextMesh>().text = msg;
 	}
 
 	public bool makeTile( ) {
@@ -121,6 +126,10 @@ public class tacticsRule {
 			return;
 		}
 
+		if (p.isPawn () == false) {
+			return ;
+		}
+
 		// deselect all
 		for (int i = 0; i < _listTile.Count; i++) {
 			GameObject o = (GameObject)_listTile [i];
@@ -139,7 +148,13 @@ public class tacticsRule {
 	}
 
 	public void ui_picking( GameObject obj ) {
-		Debug.Log ("UI : " + obj);
+		slot s = (slot)obj.GetComponent<slot> ();
+		if (s != null) {
+			GameObject p = s._pawn;
+			picking( (GameObject)_listTile[ p.GetComponent<pawn>()._index ] );
+
+			message( p.GetComponent<pawn>()._name + " seleted" );
+		}
 	}
 
 	public void move( Vector2 vec ) {
@@ -149,15 +164,49 @@ public class tacticsRule {
 	}
 
 	public bool makePawn( ) {
-		// test code
-		int x = Random.Range(0, _tile_width - 1);
-		int y = Random.Range(0, _tile_height - 1);
+		string txt;
+		if (readTxt ("json/test_stage", out txt) == true) {
+			var json = JSONNode.Parse( txt );
+			for(int i = 0; i < json["pawns"].Count; i++) {
+				var v = json["pawns"][i];
 
-		GameObject o = (GameObject)_listTile[ x + (y * _tile_width) ];
-		GameObject pawn = (GameObject)MonoBehaviour.Instantiate(Resources.Load("prefab/cursor", typeof(GameObject)));
-		o.GetComponent<tile> ().addPawn(pawn);
+				int x = v["x"].AsInt;
+				int y = v["y"].AsInt;
 
-		//
+				int idx = x + (y * _tile_width);
+
+				GameObject o = (GameObject)_listTile[ idx ];
+				GameObject pawn = (GameObject)MonoBehaviour.Instantiate(Resources.Load("prefab/cursor", typeof(GameObject)));
+
+				pawn.GetComponent<pawn>()._name = v["name"];
+				pawn.GetComponent<pawn>()._hp = v["hp"].AsInt;
+				pawn.GetComponent<pawn>()._mp = v["mp"].AsInt;
+				pawn.GetComponent<pawn>()._sp = v["sp"].AsInt;
+				pawn.GetComponent<pawn>().initPawn();
+
+				o.GetComponent<tile> ().addPawn(pawn);
+
+				// make slot
+				GameObject slot = (GameObject)MonoBehaviour.Instantiate(Resources.Load("prefab/sp_simcard", typeof(GameObject)));
+				slot.GetComponent<slot>()._pawn = pawn;
+				slot.GetComponent<slot>().updateUI();
+				slot.transform.position = new Vector3(-1f + (0.5f * i), 20.0f - 0.65f, 0.0f);
+			}
+
+			message("Load Complite " + json["pawns"].Count + " pawns");
+		}
+
+		return true;
+	}
+
+	bool readTxt( string path, out string txt ) {
+		TextAsset ta = (TextAsset)Resources.Load (path) as TextAsset;
+		if (ta == null) {
+			txt = "";
+			return false;
+		}
+
+		txt = ta.text;
 
 		return true;
 	}

@@ -18,8 +18,8 @@ MonoBehaviour:
     managed: 0
     loadable: 0
   fontIndex:
-  - assetGUID: a5be8cc402b8341faa019a1907b640ec
-    dataGUID: c5fd5c95ebdac46ee8fac342c459cede
+  - assetGUID: 4243e17bfb1f141c5922b18ef033546c
+    dataGUID: de89e51931c1a46aa9027fb0ea3161d9
     managed: 0
     loadable: 0
   spriteCollectionIndex:
@@ -35,6 +35,19 @@ MonoBehaviour:
     spriteTextureTimeStamps:
     - 1391090725
     - 1391090731
+    managedSpriteCollection: 0
+    loadable: 0
+    assetName: 
+    version: 3
+  - name: AvatarSpriteCollection
+    spriteCollectionGUID: 06d5d2cd72d2643f98a78af0b81dba75
+    spriteCollectionDataGUID: c62c549a7491d44d88042d68987f326d
+    spriteNames:
+    - atslot
+    spriteTextureGUIDs:
+    - a456cff9247e940cca9e5b11f54bb9d7
+    spriteTextureTimeStamps:
+    - 1391193097
     managedSpriteCollection: 0
     loadable: 0
     assetName: 

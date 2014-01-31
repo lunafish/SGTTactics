@@ -6,6 +6,11 @@ public class pawn : MonoBehaviour {
 	public static int SELECT_RED = 1;
 	public static int SELECT_BLUE = 2;
 
+	public string _name;
+	public int _hp;
+	public int _mp;
+	public int _sp;
+	public int _index;
 
 	// Use this for initialization
 	void Start () {
@@ -32,5 +37,9 @@ public class pawn : MonoBehaviour {
 				child.renderer.material.color = Color.white;
 			}
 		}
+	}
+
+	public void initPawn( ) {
+		Debug.Log (_name + " " + _hp + " " + _mp + " " + _sp);
 	}
 }
