@@ -131,7 +131,7 @@ public class tacticsRule {
 		if (p.isPawn () == false) {
 
 			if(_select != null) {
-				if(p._select == tile.SELECT_GREEN) {
+				if(p._select != tile.SELECT_NONE) {
 					// move
 					p.addPawn ( _select.getPawn() );
 					_select.removePawn();
@@ -142,10 +142,6 @@ public class tacticsRule {
 			} else {
 				return;
 			}
-		} else {
-			// attack
-
-			//
 		}
 
 		// deselect all
@@ -200,6 +196,10 @@ public class tacticsRule {
 				pawn.GetComponent<pawn>()._hp = v["hp"].AsInt;
 				pawn.GetComponent<pawn>()._mp = v["mp"].AsInt;
 				pawn.GetComponent<pawn>()._sp = v["sp"].AsInt;
+				pawn.GetComponent<pawn>()._rmv = v["rmv"].AsInt;
+				pawn.GetComponent<pawn>()._ratk = v["ratk"].AsInt;
+				pawn.GetComponent<pawn>()._atk = v["atk"].AsInt;
+				pawn.GetComponent<pawn>()._def = v["def"].AsInt;
 				pawn.GetComponent<pawn>().initPawn();
 
 				o.GetComponent<tile> ().addPawn(pawn);

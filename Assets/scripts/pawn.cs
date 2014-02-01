@@ -11,7 +11,11 @@ public class pawn : MonoBehaviour {
 	public int _mp;
 	public int _sp;
 	public int _index;
-	public int _mov;
+	public int _rmv; // range move
+	public int _ratk; // range attack
+	public int _atk;
+	public int _def;
+
 
 	// Use this for initialization
 	void Start () {
