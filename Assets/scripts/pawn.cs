@@ -11,6 +11,7 @@ public class pawn : MonoBehaviour {
 	public int _mp;
 	public int _sp;
 	public int _index;
+	public int _mov;
 
 	// Use this for initialization
 	void Start () {
