@@ -142,6 +142,17 @@ public class tacticsRule {
 			} else {
 				return;
 			}
+		} else {
+			if(_select != null) {
+				// attack
+				if(p._select == tile.SELECT_YELLOW) {
+					message( "Attack from " + _select.getPawn().GetComponent<pawn>()._name + " to " + p.getPawn().GetComponent<pawn>()._name );
+				} else {
+					message( "Outrange : " + p.getPawn().GetComponent<pawn>()._name );
+				}
+				//
+				return;
+			}
 		}
 
 		// deselect all
@@ -166,6 +177,7 @@ public class tacticsRule {
 	public void ui_picking( GameObject obj ) {
 		slot s = (slot)obj.GetComponent<slot> ();
 		if (s != null) {
+			_select = null;
 			GameObject p = s._pawn;
 			picking( (GameObject)_listTile[ p.GetComponent<pawn>()._index ] );
 		}

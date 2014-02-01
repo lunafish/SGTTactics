@@ -1,7 +1,7 @@
 { "pawns" : [
-		{ "name" : "luna", "hp" : 100, "mp" : 75, "sp" : 0, "x" : 1, "y" : 1, "rmv" : 2, "ratk" : 1, "atk" : 10, "def" : 2  },
-		{ "name" : "fish", "hp" : 120, "mp" : 50, "sp" : 25, "x" : 4, "y" : 4, "rmv" : 2, "ratk" : 1, "atk" : 10, "def" : 2 },
-		{ "name" : "enemy", "hp" : 80, "mp" : 55, "sp" : 45, "x" : 2, "y" : 6, "rmv" : 2, "ratk" : 1, "atk" : 10, "def" : 2 },
-		{ "name" : "monster", "hp" : 90, "mp" : 25, "sp" : 10, "x" : 5, "y" : 7, "rmv" : 1, "ratk" : 2, "atk" : 10, "def" : 2 },
+		{ "name" : "루나", "hp" : 100, "mp" : 75, "sp" : 0, "x" : 1, "y" : 1, "rmv" : 2, "ratk" : 1, "atk" : 10, "def" : 2  },
+		{ "name" : "luna", "hp" : 120, "mp" : 50, "sp" : 25, "x" : 4, "y" : 4, "rmv" : 2, "ratk" : 1, "atk" : 10, "def" : 2 },
+		{ "name" : "ルナー", "hp" : 80, "mp" : 55, "sp" : 45, "x" : 2, "y" : 6, "rmv" : 2, "ratk" : 1, "atk" : 10, "def" : 2 },
+		{ "name" : "더미", "hp" : 90, "mp" : 25, "sp" : 10, "x" : 5, "y" : 7, "rmv" : 1, "ratk" : 2, "atk" : 10, "def" : 2 },
 	]
 }

@@ -60,9 +60,13 @@ public class tile : MonoBehaviour {
 			*/
 		}
 		if (type == tile.SELECT_GREEN) {
+			// recv function problem : red > yellow > green > whilte
 			if(renderer.material.color == Color.white) {
 				renderer.material.color = Color.green;
+			} else if(renderer.material.color == Color.yellow) {
+				type = tile.SELECT_YELLOW;
 			}
+			//
 		} else if(type == tile.SELECT_YELLOW) {
 			renderer.material.color = Color.yellow;
 		} else if(type == tile.SELECT_NONE) {
