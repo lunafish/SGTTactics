@@ -29,12 +29,15 @@ MonoBehaviour:
     spriteNames:
     - simcard
     - infobar
+    - button
     spriteTextureGUIDs:
     - 5f137a9e6245e49c394d111655625eb0
     - a6a749e34bbb349bfb2ec21ba85cfe8f
+    - cd738c0a4c82c4efcabc1adb6d3e9edf
     spriteTextureTimeStamps:
-    - 1391294424
-    - 1391294424
+    - 1391294245
+    - 1391294044
+    - 1391374732
     managedSpriteCollection: 0
     loadable: 0
     assetName: 

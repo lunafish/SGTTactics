@@ -116,6 +116,43 @@ MonoBehaviour:
     colliderIndicesBack: 
     colliderConvex: 0
     colliderSmoothSphereCollisions: 0
+  - name: button
+    boundsData:
+    - {x: .1875, y: -.100000001, z: 0}
+    - {x: .375, y: .200000003, z: 0}
+    untrimmedBoundsData:
+    - {x: .1875, y: -.100000001, z: 0}
+    - {x: .375, y: .200000003, z: 0}
+    texelSize: {x: .00312500005, y: .00312500005}
+    positions:
+    - {x: 0, y: -.200000003, z: 0}
+    - {x: .375, y: -.200000003, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: .375, y: 0, z: 0}
+    normals: []
+    tangents: []
+    uvs:
+    - {x: .710941434, y: .00390820298}
+    - {x: .710941434, y: .238279298}
+    - {x: .960933566, y: .00390820298}
+    - {x: .960933566, y: .238279298}
+    indices: 000000000300000001000000020000000300000000000000
+    material: {fileID: 2100000, guid: b24d9cd4325b9409692ee4deb9be3f47, type: 2}
+    materialId: 0
+    sourceTextureGUID: cd738c0a4c82c4efcabc1adb6d3e9edf
+    extractRegion: 0
+    regionX: 0
+    regionY: 0
+    regionW: 0
+    regionH: 0
+    flipped: 1
+    complexGeometry: 0
+    colliderType: 0
+    colliderVertices: []
+    colliderIndicesFwd: 
+    colliderIndicesBack: 
+    colliderConvex: 0
+    colliderSmoothSphereCollisions: 0
   premultipliedAlpha: 0
   material: {fileID: 0}
   materials:
@@ -129,7 +166,7 @@ MonoBehaviour:
   loadable: 0
   invOrthoSize: 1
   halfTargetHeight: 320
-  buildKey: 1709235251
+  buildKey: 1639824709
   dataGuid: c1a792b60620741798d54d5c4091a595
   managedSpriteCollection: 0
   hasPlatformData: 0
