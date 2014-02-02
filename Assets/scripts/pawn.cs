@@ -5,6 +5,8 @@ public class pawn : MonoBehaviour {
 	public static int SELECT_NONE = 0;
 	public static int SELECT_RED = 1;
 	public static int SELECT_BLUE = 2;
+	public static int ALLY = 0;
+	public static int ENEMY = 1;
 
 	public string _name;
 	public int _hp;
@@ -15,13 +17,12 @@ public class pawn : MonoBehaviour {
 	public int _ratk; // range attack
 	public int _atk;
 	public int _def;
+	public int _type;
 
 
 	// Use this for initialization
 	void Start () {
-		// test code
-		select (SELECT_BLUE);
-		//
+
 	}
 	
 	// Update is called once per frame

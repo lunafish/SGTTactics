@@ -146,7 +146,11 @@ public class tacticsRule {
 			if(_select != null) {
 				// attack
 				if(p._select == tile.SELECT_YELLOW) {
-					message( "Attack from " + _select.getPawn().GetComponent<pawn>()._name + " to " + p.getPawn().GetComponent<pawn>()._name );
+					if(_select.getPawn().GetComponent<pawn>()._type == p.getPawn().GetComponent<pawn>()._type) {
+						message( "Ally " + _select.getPawn().GetComponent<pawn>()._name + " and " + p.getPawn().GetComponent<pawn>()._name );
+					} else {
+						message( "Attack from " + _select.getPawn().GetComponent<pawn>()._name + " to " + p.getPawn().GetComponent<pawn>()._name );
+					}
 				} else {
 					message( "Outrange : " + p.getPawn().GetComponent<pawn>()._name );
 				}
@@ -202,23 +206,32 @@ public class tacticsRule {
 				int idx = x + (y * _tile_width);
 
 				GameObject o = (GameObject)_listTile[ idx ];
-				GameObject pawn = (GameObject)MonoBehaviour.Instantiate(Resources.Load("prefab/cursor", typeof(GameObject)));
+				GameObject p = (GameObject)MonoBehaviour.Instantiate(Resources.Load("prefab/cursor", typeof(GameObject)));
 
-				pawn.GetComponent<pawn>()._name = v["name"];
-				pawn.GetComponent<pawn>()._hp = v["hp"].AsInt;
-				pawn.GetComponent<pawn>()._mp = v["mp"].AsInt;
-				pawn.GetComponent<pawn>()._sp = v["sp"].AsInt;
-				pawn.GetComponent<pawn>()._rmv = v["rmv"].AsInt;
-				pawn.GetComponent<pawn>()._ratk = v["ratk"].AsInt;
-				pawn.GetComponent<pawn>()._atk = v["atk"].AsInt;
-				pawn.GetComponent<pawn>()._def = v["def"].AsInt;
-				pawn.GetComponent<pawn>().initPawn();
+				p.GetComponent<pawn>()._name = v["name"];
+				p.GetComponent<pawn>()._hp = v["hp"].AsInt;
+				p.GetComponent<pawn>()._mp = v["mp"].AsInt;
+				p.GetComponent<pawn>()._sp = v["sp"].AsInt;
+				p.GetComponent<pawn>()._rmv = v["rmv"].AsInt;
+				p.GetComponent<pawn>()._ratk = v["ratk"].AsInt;
+				p.GetComponent<pawn>()._atk = v["atk"].AsInt;
+				p.GetComponent<pawn>()._def = v["def"].AsInt;
 
-				o.GetComponent<tile> ().addPawn(pawn);
+				if( string.Compare(v["type"], "ally") == 0) {
+					p.GetComponent<pawn>().select( pawn.SELECT_BLUE );
+					p.GetComponent<pawn>()._type = pawn.ALLY;
+				} else {
+					p.GetComponent<pawn>().select( pawn.SELECT_RED );
+					p.GetComponent<pawn>()._type = pawn.ENEMY;
+				}
+
+				p.GetComponent<pawn>().initPawn();
+
+				o.GetComponent<tile> ().addPawn(p);
 
 				// make slot
 				GameObject slot = (GameObject)MonoBehaviour.Instantiate(Resources.Load("prefab/sp_simcard", typeof(GameObject)));
-				slot.GetComponent<slot>()._pawn = pawn;
+				slot.GetComponent<slot>()._pawn = p;
 				slot.GetComponent<slot>().updateUI();
 				slot.transform.position = new Vector3(-1f + (0.5f * i), 20.0f - 0.65f, 0.0f);
 			}
