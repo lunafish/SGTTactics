@@ -59,9 +59,9 @@ MonoBehaviour:
   forcedTextureHeight: 1024
   textureCompression: 0
   atlasWidth: 128
-  atlasHeight: 128
+  atlasHeight: 256
   forceSquareAtlas: 0
-  atlasWastage: 71.7773438
+  atlasWastage: 66.1621094
   allowMultipleAtlases: 0
   textureParams:
   - name: atslot

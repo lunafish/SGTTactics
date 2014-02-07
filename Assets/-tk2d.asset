@@ -35,9 +35,9 @@ MonoBehaviour:
     - a6a749e34bbb349bfb2ec21ba85cfe8f
     - cd738c0a4c82c4efcabc1adb6d3e9edf
     spriteTextureTimeStamps:
-    - 1391294424
-    - 1391294424
-    - 1391426506
+    - 1391816021
+    - 1391294044
+    - 1391374732
     managedSpriteCollection: 0
     loadable: 0
     assetName: 
@@ -50,7 +50,7 @@ MonoBehaviour:
     spriteTextureGUIDs:
     - a456cff9247e940cca9e5b11f54bb9d7
     spriteTextureTimeStamps:
-    - 1391294424
+    - 1391816121
     managedSpriteCollection: 0
     loadable: 0
     assetName: 

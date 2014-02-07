@@ -8,6 +8,7 @@ public class tacticsRule {
 	public const int _tile_height = 16;
 
 	private ArrayList _listTile = null;
+	private ArrayList _listSlot = null;
 
 	private tile _select = null;
 
@@ -184,6 +185,21 @@ public class tacticsRule {
 			_select = null;
 			GameObject p = s._pawn;
 			picking( (GameObject)_listTile[ p.GetComponent<pawn>()._index ] );
+
+			// select slot up
+			Vector3 pos = obj.transform.parent.transform.position;
+			for(int i = 0; i < _listSlot.Count; i++) {
+				GameObject tmp = (GameObject)_listSlot[i];
+				if(tmp == obj) {
+					tmp.transform.position = new Vector3(tmp.transform.position.x, pos.y -0.6f, tmp.transform.position.z);
+				}
+				else {
+					tmp.transform.position = new Vector3(tmp.transform.position.x, pos.y -0.8f, tmp.transform.position.z);
+				}
+				GameObject sim = tmp.GetComponent<slot>()._sim;
+				sim.transform.position = new Vector3(pos.x - 1.0f + ((tmp.GetComponent<slot>()._index - s._index) * 2.0f), sim.transform.position.y, sim.transform.position.z);
+			}
+			//
 		}
 	}
 
@@ -194,6 +210,12 @@ public class tacticsRule {
 	}
 
 	public bool makePawn( ) {
+		if (_listSlot != null) {
+			_listSlot.Clear();
+		}
+
+		_listSlot = new ArrayList ();
+
 		string txt;
 		if (readTxt ("json/test_stage", out txt) == true) {
 			var json = JSONNode.Parse( txt );
@@ -230,10 +252,23 @@ public class tacticsRule {
 				o.GetComponent<tile> ().addPawn(p);
 
 				// make slot
-				GameObject slot = (GameObject)MonoBehaviour.Instantiate(Resources.Load("prefab/sp_simcard", typeof(GameObject)));
+				GameObject ui = GameObject.FindGameObjectWithTag("UI"); // ui object
+
+				GameObject sim = (GameObject)MonoBehaviour.Instantiate(Resources.Load("prefab/sp_simcard", typeof(GameObject)));
+				sim.transform.parent = ui.transform;
+				sim.transform.position = ui.transform.position;
+				sim.transform.position += new Vector3(-1.0f + (i * 2.0f), -1.0f, 0.0f);
+				sim.GetComponent<simcard>()._pawn = p;
+				sim.GetComponent<simcard>().updateUI();
+
+				GameObject slot = (GameObject)MonoBehaviour.Instantiate(Resources.Load("prefab/sp_slot", typeof(GameObject)));
+				slot.GetComponent<slot>()._sim = sim;
 				slot.GetComponent<slot>()._pawn = p;
-				slot.GetComponent<slot>().updateUI();
-				slot.transform.position = new Vector3(-1f + (0.5f * i), 20.0f - 0.65f, 0.0f);
+				slot.transform.parent = ui.transform;
+				slot.transform.position = ui.transform.position;
+				slot.transform.position += new Vector3(-1.0f + (i * 0.5f), -0.8f, 1.0f);
+
+				slot.GetComponent<slot>()._index = _listSlot.Add(slot);
 			}
 
 			message("Load Complite " + json["pawns"].Count + " pawns");
