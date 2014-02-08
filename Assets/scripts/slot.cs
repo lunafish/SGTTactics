@@ -6,12 +6,6 @@ public class slot : MonoBehaviour {
 	public GameObject _sim = null;
 	public int _index;
 
-//	public GameObject _hp;
-//	public GameObject _mp;
-//	public GameObject _sp;
-//	public GameObject _avatar;
-
-
 	// Use this for initialization
 	void Start () {
 	
@@ -20,5 +14,14 @@ public class slot : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public void updateSlot () {
+		// test code
+		if (_pawn.GetComponent<pawn> ()._type == pawn.ALLY) {
+			GetComponent<tk2dSprite>().spriteId = 0;
+		} else {
+			GetComponent<tk2dSprite>().spriteId = 1;
+		}
 	}
 }

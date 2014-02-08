@@ -47,10 +47,13 @@ MonoBehaviour:
     spriteCollectionDataGUID: c62c549a7491d44d88042d68987f326d
     spriteNames:
     - atslot
+    - atslot_snd
     spriteTextureGUIDs:
-    - a456cff9247e940cca9e5b11f54bb9d7
+    - 4d71d6132602b4de7a4878647fabd2ee
+    - 886b739e80b3249169e125c9fd706802
     spriteTextureTimeStamps:
-    - 1391879866
+    - 1391898698
+    - 1391897313
     managedSpriteCollection: 0
     loadable: 0
     assetName: 

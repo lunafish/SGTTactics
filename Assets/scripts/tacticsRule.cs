@@ -191,10 +191,10 @@ public class tacticsRule {
 			for(int i = 0; i < _listSlot.Count; i++) {
 				GameObject tmp = (GameObject)_listSlot[i];
 				if(tmp == obj) {
-					tmp.transform.position = new Vector3(tmp.transform.position.x, pos.y -0.6f, tmp.transform.position.z);
+					tmp.transform.position = new Vector3(tmp.transform.position.x, pos.y -0.5f, tmp.transform.position.z);
 				}
 				else {
-					tmp.transform.position = new Vector3(tmp.transform.position.x, pos.y -0.8f, tmp.transform.position.z);
+					tmp.transform.position = new Vector3(tmp.transform.position.x, pos.y -0.75f, tmp.transform.position.z);
 				}
 				GameObject sim = tmp.GetComponent<slot>()._sim;
 				sim.transform.position = new Vector3(pos.x - 1.0f + ((tmp.GetComponent<slot>()._index - s._index) * 2.0f), sim.transform.position.y, sim.transform.position.z);
@@ -266,7 +266,8 @@ public class tacticsRule {
 				slot.GetComponent<slot>()._pawn = p;
 				slot.transform.parent = ui.transform;
 				slot.transform.position = ui.transform.position;
-				slot.transform.position += new Vector3(-1.0f + (i * 0.5f), -0.8f, 1.0f);
+				slot.transform.position += new Vector3(-1.0f + (i * 0.5f), -0.75f, 1.0f);
+				slot.GetComponent<slot>().updateSlot();
 
 				slot.GetComponent<slot>()._index = _listSlot.Add(slot);
 			}
