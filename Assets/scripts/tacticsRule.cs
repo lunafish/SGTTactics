@@ -8,7 +8,8 @@ public class tacticsRule {
 	public const int _tile_height = 16;
 
 	private ArrayList _listTile = null;
-	private ArrayList _listSlot = null;
+	private ArrayList _listAlly = null;
+	private ArrayList _listEnemy = null;
 
 	private tile _select = null;
 
@@ -188,8 +189,8 @@ public class tacticsRule {
 
 			// select slot up
 			Vector3 pos = obj.transform.parent.transform.position;
-			for(int i = 0; i < _listSlot.Count; i++) {
-				GameObject tmp = (GameObject)_listSlot[i];
+			for(int i = 0; i < _listAlly.Count; i++) {
+				GameObject tmp = (GameObject)_listAlly[i];
 				if(tmp == obj) {
 					tmp.transform.position = new Vector3(tmp.transform.position.x, pos.y -0.5f, tmp.transform.position.z);
 				}
@@ -209,67 +210,76 @@ public class tacticsRule {
 		Camera.main.transform.position += (moveDir * 0.1f);
 	}
 
-	public bool makePawn( ) {
-		if (_listSlot != null) {
-			_listSlot.Clear();
+	bool makePawnAlly( JSONNode v) {
+		int x = v["x"].AsInt;
+		int y = v["y"].AsInt;
+		
+		int idx = x + (y * _tile_width);
+		
+		GameObject o = (GameObject)_listTile[ idx ];
+		GameObject p = (GameObject)MonoBehaviour.Instantiate(Resources.Load("prefab/cursor", typeof(GameObject)));
+		
+		p.GetComponent<pawn>()._name = v["name"];
+		p.GetComponent<pawn>()._hp = v["hp"].AsInt;
+		p.GetComponent<pawn>()._mp = v["mp"].AsInt;
+		p.GetComponent<pawn>()._sp = v["sp"].AsInt;
+		p.GetComponent<pawn>()._rmv = v["rmv"].AsInt;
+		p.GetComponent<pawn>()._ratk = v["ratk"].AsInt;
+		p.GetComponent<pawn>()._atk = v["atk"].AsInt;
+		p.GetComponent<pawn>()._def = v["def"].AsInt;
+		
+		if( string.Compare(v["type"], "ally") == 0) {
+			p.GetComponent<pawn>().select( pawn.SELECT_BLUE );
+			p.GetComponent<pawn>()._type = pawn.ALLY;
+		} else {
+			p.GetComponent<pawn>().select( pawn.SELECT_RED );
+			p.GetComponent<pawn>()._type = pawn.ENEMY;
 		}
+		
+		p.GetComponent<pawn>().initPawn();
+		o.GetComponent<tile> ().addPawn(p);
+		
+		// make slot
+		GameObject ui = GameObject.FindGameObjectWithTag("UI"); // ui object
+		
+		GameObject sim = (GameObject)MonoBehaviour.Instantiate(Resources.Load("prefab/sp_simcard", typeof(GameObject)));
+		GameObject slot = (GameObject)MonoBehaviour.Instantiate(Resources.Load("prefab/sp_slot", typeof(GameObject)));
+		int index = _listAlly.Add(slot);
 
-		_listSlot = new ArrayList ();
+		slot.GetComponent<slot> ()._index = index;
+		sim.transform.parent = ui.transform;
+		sim.transform.position = ui.transform.position;
+		sim.transform.position += new Vector3(-1.0f + (index * 2.0f), -1.0f, 0.0f);
+		sim.GetComponent<simcard>()._pawn = p;
+		sim.GetComponent<simcard>().updateUI();
+		
+		slot.GetComponent<slot>()._sim = sim;
+		slot.GetComponent<slot>()._pawn = p;
+		slot.transform.parent = ui.transform;
+		slot.transform.position = ui.transform.position;
+		slot.transform.position += new Vector3(-1.0f + (index * 0.5f), -0.75f, 1.0f);
+		slot.GetComponent<slot>().updateSlot();
+		//
+
+		return true;
+	}
+
+	public bool makePawn( ) {
+		if (_listAlly != null) {
+			_listAlly.Clear();
+		}
+		_listAlly = new ArrayList ();
 
 		string txt;
 		if (readTxt ("json/test_stage", out txt) == true) {
 			var json = JSONNode.Parse( txt );
 			for(int i = 0; i < json["pawns"].Count; i++) {
 				var v = json["pawns"][i];
-
-				int x = v["x"].AsInt;
-				int y = v["y"].AsInt;
-
-				int idx = x + (y * _tile_width);
-
-				GameObject o = (GameObject)_listTile[ idx ];
-				GameObject p = (GameObject)MonoBehaviour.Instantiate(Resources.Load("prefab/cursor", typeof(GameObject)));
-
-				p.GetComponent<pawn>()._name = v["name"];
-				p.GetComponent<pawn>()._hp = v["hp"].AsInt;
-				p.GetComponent<pawn>()._mp = v["mp"].AsInt;
-				p.GetComponent<pawn>()._sp = v["sp"].AsInt;
-				p.GetComponent<pawn>()._rmv = v["rmv"].AsInt;
-				p.GetComponent<pawn>()._ratk = v["ratk"].AsInt;
-				p.GetComponent<pawn>()._atk = v["atk"].AsInt;
-				p.GetComponent<pawn>()._def = v["def"].AsInt;
-
 				if( string.Compare(v["type"], "ally") == 0) {
-					p.GetComponent<pawn>().select( pawn.SELECT_BLUE );
-					p.GetComponent<pawn>()._type = pawn.ALLY;
+					makePawnAlly( json["pawns"][i] );
 				} else {
-					p.GetComponent<pawn>().select( pawn.SELECT_RED );
-					p.GetComponent<pawn>()._type = pawn.ENEMY;
+
 				}
-
-				p.GetComponent<pawn>().initPawn();
-
-				o.GetComponent<tile> ().addPawn(p);
-
-				// make slot
-				GameObject ui = GameObject.FindGameObjectWithTag("UI"); // ui object
-
-				GameObject sim = (GameObject)MonoBehaviour.Instantiate(Resources.Load("prefab/sp_simcard", typeof(GameObject)));
-				sim.transform.parent = ui.transform;
-				sim.transform.position = ui.transform.position;
-				sim.transform.position += new Vector3(-1.0f + (i * 2.0f), -1.0f, 0.0f);
-				sim.GetComponent<simcard>()._pawn = p;
-				sim.GetComponent<simcard>().updateUI();
-
-				GameObject slot = (GameObject)MonoBehaviour.Instantiate(Resources.Load("prefab/sp_slot", typeof(GameObject)));
-				slot.GetComponent<slot>()._sim = sim;
-				slot.GetComponent<slot>()._pawn = p;
-				slot.transform.parent = ui.transform;
-				slot.transform.position = ui.transform.position;
-				slot.transform.position += new Vector3(-1.0f + (i * 0.5f), -0.75f, 1.0f);
-				slot.GetComponent<slot>().updateSlot();
-
-				slot.GetComponent<slot>()._index = _listSlot.Add(slot);
 			}
 
 			message("Load Complite " + json["pawns"].Count + " pawns");
