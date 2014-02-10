@@ -210,7 +210,7 @@ public class tacticsRule {
 		Camera.main.transform.position += (moveDir * 0.1f);
 	}
 
-	bool makePawnAlly( JSONNode v) {
+	GameObject makePawnObject( JSONNode v ) {
 		int x = v["x"].AsInt;
 		int y = v["y"].AsInt;
 		
@@ -238,6 +238,12 @@ public class tacticsRule {
 		
 		p.GetComponent<pawn>().initPawn();
 		o.GetComponent<tile> ().addPawn(p);
+
+		return p;
+	}
+
+	bool makePawnAlly( JSONNode v) {
+		GameObject p = makePawnObject (v);
 		
 		// make slot
 		GameObject ui = GameObject.FindGameObjectWithTag("UI"); // ui object
@@ -264,6 +270,14 @@ public class tacticsRule {
 		return true;
 	}
 
+	bool makePawnEnemy( JSONNode v ) {
+		// test
+		GameObject p = makePawnObject (v);
+		int index = _listEnemy.Add(p);
+		//
+		return true;
+	}
+
 	public bool makePawn( ) {
 		if (_listAlly != null) {
 			_listAlly.Clear();
@@ -278,7 +292,7 @@ public class tacticsRule {
 				if( string.Compare(v["type"], "ally") == 0) {
 					makePawnAlly( json["pawns"][i] );
 				} else {
-
+					makePawnEnemy( json["pawns"][i] );
 				}
 			}
 
