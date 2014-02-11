@@ -285,6 +285,11 @@ public class tacticsRule {
 		}
 		_listAlly = new ArrayList ();
 
+		if (_listEnemy != null) {
+			_listEnemy.Clear();
+		}
+		_listEnemy = new ArrayList ();
+
 		string txt;
 		if (readTxt ("json/test_stage", out txt) == true) {
 			var json = JSONNode.Parse( txt );
