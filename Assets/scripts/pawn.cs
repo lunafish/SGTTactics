@@ -18,6 +18,7 @@ public class pawn : MonoBehaviour {
 	public int _atk;
 	public int _def;
 	public int _type;
+	public int _avatar;
 
 
 	// Use this for initialization

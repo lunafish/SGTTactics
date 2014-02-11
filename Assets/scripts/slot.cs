@@ -17,11 +17,6 @@ public class slot : MonoBehaviour {
 	}
 
 	public void updateSlot () {
-		// test code
-		if (_pawn.GetComponent<pawn> ()._type == pawn.ALLY) {
-			GetComponent<tk2dSprite>().spriteId = 0;
-		} else {
-			GetComponent<tk2dSprite>().spriteId = 1;
-		}
+		GetComponent<tk2dSprite>().spriteId = _pawn.GetComponent<pawn>()._avatar;
 	}
 }

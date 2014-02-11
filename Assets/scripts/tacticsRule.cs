@@ -227,6 +227,7 @@ public class tacticsRule {
 		p.GetComponent<pawn>()._ratk = v["ratk"].AsInt;
 		p.GetComponent<pawn>()._atk = v["atk"].AsInt;
 		p.GetComponent<pawn>()._def = v["def"].AsInt;
+		p.GetComponent<pawn>()._avatar = v ["avatar"].AsInt;
 		
 		if( string.Compare(v["type"], "ally") == 0) {
 			p.GetComponent<pawn>().select( pawn.SELECT_BLUE );
