@@ -13,6 +13,8 @@ public class tacticsRule {
 
 	private tile _select = null;
 
+	private GameObject _dialog = null;
+
 	public static tacticsRule get( ) {
 		if (_rule == null) {
 			_rule = new tacticsRule ();
@@ -152,6 +154,7 @@ public class tacticsRule {
 						message( "Ally " + _select.getPawn().GetComponent<pawn>()._name + " and " + p.getPawn().GetComponent<pawn>()._name );
 					} else {
 						message( "Attack from " + _select.getPawn().GetComponent<pawn>()._name + " to " + p.getPawn().GetComponent<pawn>()._name );
+						_dialog.SetActive(true);
 					}
 				} else {
 					message( "Outrange : " + p.getPawn().GetComponent<pawn>()._name );
@@ -181,27 +184,48 @@ public class tacticsRule {
 	}
 
 	public void ui_picking( GameObject obj ) {
-		slot s = (slot)obj.GetComponent<slot> ();
-		if (s != null) {
-			_select = null;
-			GameObject p = s._pawn;
-			picking( (GameObject)_listTile[ p.GetComponent<pawn>()._index ] );
-
-			// select slot up
-			Vector3 pos = obj.transform.parent.transform.position;
-			for(int i = 0; i < _listAlly.Count; i++) {
-				GameObject tmp = (GameObject)_listAlly[i];
-				if(tmp == obj) {
-					tmp.transform.position = new Vector3(tmp.transform.position.x, pos.y -0.5f, tmp.transform.position.z);
-				}
-				else {
-					tmp.transform.position = new Vector3(tmp.transform.position.x, pos.y -0.75f, tmp.transform.position.z);
-				}
-				GameObject sim = tmp.GetComponent<slot>()._sim;
-				sim.transform.position = new Vector3(pos.x - 1.0f + ((tmp.GetComponent<slot>()._index - s._index) * 2.0f), sim.transform.position.y, sim.transform.position.z);
-			}
-			//
+		if (obj.GetComponent<slot>() != null) {
+			slot_picking(obj);
+			return;
 		}
+
+		if (obj.GetComponent<UIButton> () != null) {
+			dlg_picking(obj);
+			return;
+		}
+	}
+
+	void slot_picking( GameObject obj ) {
+		_select = null;
+		slot s = (slot)obj.GetComponent<slot> ();
+		GameObject p = s._pawn;
+		picking( (GameObject)_listTile[ p.GetComponent<pawn>()._index ] );
+		
+		// select slot up
+		Vector3 pos = obj.transform.parent.transform.position;
+		for(int i = 0; i < _listAlly.Count; i++) {
+			GameObject tmp = (GameObject)_listAlly[i];
+			if(tmp == obj) {
+				tmp.transform.position = new Vector3(tmp.transform.position.x, pos.y -0.5f, tmp.transform.position.z);
+			}
+			else {
+				tmp.transform.position = new Vector3(tmp.transform.position.x, pos.y -0.75f, tmp.transform.position.z);
+			}
+			GameObject sim = tmp.GetComponent<slot>()._sim;
+			sim.transform.position = new Vector3(pos.x - 1.0f + ((tmp.GetComponent<slot>()._index - s._index) * 2.0f), sim.transform.position.y, sim.transform.position.z);
+		}
+		//
+	}
+
+	void dlg_picking( GameObject obj ) {
+		// test
+		Debug.Log ( _dialog.GetComponent<UIDialog>().getBtnIndex(obj) + " " + obj );
+
+		if(_dialog.GetComponent<UIDialog>().getBtnIndex(obj) == 2) {
+			_dialog.SetActive(false);
+		}
+
+		// test
 	}
 
 	public void move( Vector2 vec ) {
@@ -318,5 +342,16 @@ public class tacticsRule {
 		txt = ta.text;
 
 		return true;
+	}
+
+	// dialog
+	public void makeDialog( ) {
+		_dialog = (GameObject)MonoBehaviour.Instantiate(Resources.Load("prefab/sp_dialog", typeof(GameObject)));
+
+		GameObject ui = GameObject.FindGameObjectWithTag("UI"); // ui object
+		_dialog.transform.parent = ui.transform;
+		_dialog.transform.position = ui.transform.position + new Vector3(0.0f, 0.0f, -0.5f);
+
+		_dialog.SetActive (false);
 	}
 }

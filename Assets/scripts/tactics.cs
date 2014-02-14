@@ -22,6 +22,7 @@ public class tactics : MonoBehaviour {
 		// test code
 		_rule.makeTile ();
 		_rule.makePawn ();
+		_rule.makeDialog ();
 		//
 	}
 	
