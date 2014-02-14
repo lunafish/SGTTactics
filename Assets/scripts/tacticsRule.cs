@@ -352,6 +352,12 @@ public class tacticsRule {
 		_dialog.transform.parent = ui.transform;
 		_dialog.transform.position = ui.transform.position + new Vector3(0.0f, 0.0f, -0.5f);
 
+		string txt;
+		if (readTxt ("json/test_stage", out txt) == true) {
+			var json = JSONNode.Parse( txt );
+			_dialog.GetComponent<UIDialog>().loadDlg( json["battle_dlg"] );
+		}
+
 		_dialog.SetActive (false);
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using SimpleJSON;
 using System.Collections;
 
 public class UIDialog : MonoBehaviour {
@@ -14,6 +15,15 @@ public class UIDialog : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public bool loadDlg( JSONNode json ) {
+		Debug.Log (json ["name"]);
+		setText (0, json ["dlg_1"]);
+		setText (1, json ["dlg_2"]);
+		setText (2, json ["dlg_3"]);
+
+		return true;
 	}
 
 	public void setText( int btn, string text ) {
