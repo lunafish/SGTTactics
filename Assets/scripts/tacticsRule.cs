@@ -12,6 +12,7 @@ public class tacticsRule {
 	private ArrayList _listEnemy = null;
 
 	private tile _select = null;
+	private GameObject _target = null;
 
 	private GameObject _dialog = null;
 
@@ -218,14 +219,12 @@ public class tacticsRule {
 	}
 
 	void dlg_picking( GameObject obj ) {
-		// test
 		Debug.Log ( _dialog.GetComponent<UIDialog>().getBtnIndex(obj) + " " + obj );
 
+		// cancle
 		if(_dialog.GetComponent<UIDialog>().getBtnIndex(obj) == 2) {
 			_dialog.SetActive(false);
 		}
-
-		// test
 	}
 
 	public void move( Vector2 vec ) {
