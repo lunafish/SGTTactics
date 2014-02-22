@@ -9,8 +9,8 @@ public class tacticsRule {
 
 	// datas
 	private ArrayList _listTile = null; // tile list
-	private ArrayList _listAlly = null; // ally object list
-	private ArrayList _listEnemy = null; // enemy(AI or Network Player) object list
+	private ArrayList _listSlot = null; // ally object list
+	private ArrayList _listPawn = null; // enemy(AI or Network Player) object list
 
 	// select
 	private tile _select = null; // select tile
@@ -44,14 +44,14 @@ public class tacticsRule {
 	void init( ) {
 		// make list
 		_listTile = new ArrayList ();
-		_listAlly = new ArrayList ();
-		_listEnemy = new ArrayList ();
+		_listSlot = new ArrayList ();
+		_listPawn = new ArrayList ();
 	}
 
 	void clear( ) {
 		_listTile.Clear ();
-		_listAlly.Clear ();
-		_listEnemy.Clear ();
+		_listSlot.Clear ();
+		_listPawn.Clear ();
 
 	}
 
@@ -232,8 +232,8 @@ public class tacticsRule {
 		
 		// select slot up
 		Vector3 pos = obj.transform.parent.transform.position;
-		for(int i = 0; i < _listAlly.Count; i++) {
-			GameObject tmp = (GameObject)_listAlly[i];
+		for(int i = 0; i < _listSlot.Count; i++) {
+			GameObject tmp = (GameObject)_listSlot[i];
 			if(tmp == obj) {
 				tmp.transform.position = new Vector3(tmp.transform.position.x, pos.y -0.5f, tmp.transform.position.z);
 			}
@@ -297,6 +297,8 @@ public class tacticsRule {
 		p.GetComponent<pawn>().initPawn();
 		o.GetComponent<tile> ().addPawn(p);
 
+		_listPawn.Add(p);
+
 		return p;
 	}
 
@@ -308,7 +310,7 @@ public class tacticsRule {
 		
 		GameObject sim = (GameObject)MonoBehaviour.Instantiate(Resources.Load("prefab/sp_simcard", typeof(GameObject)));
 		GameObject slot = (GameObject)MonoBehaviour.Instantiate(Resources.Load("prefab/sp_slot", typeof(GameObject)));
-		int index = _listAlly.Add(slot);
+		int index = _listSlot.Add(slot);
 
 		slot.GetComponent<slot> ()._index = index;
 		sim.transform.parent = ui.transform;
@@ -329,10 +331,8 @@ public class tacticsRule {
 	}
 
 	bool makePawnEnemy( JSONNode v ) {
-		// test
-		GameObject p = makePawnObject (v);
-		int index = _listEnemy.Add(p);
-		//
+		makePawnObject (v);
+
 		return true;
 	}
 
@@ -388,5 +388,15 @@ public class tacticsRule {
 		}
 
 		_dialog.SetActive (false);
+	}
+
+	/*
+	 * process rule
+	 */
+	public void process( ) {
+		// pawn
+		for(int i = 0; i < _listPawn.Count; i++) {
+			((GameObject)_listPawn[i]).GetComponent<pawn>().process();
+		}
 	}
 }

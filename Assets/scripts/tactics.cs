@@ -33,6 +33,9 @@ public class tactics : MonoBehaviour {
 			return;
 		}
 
+		// process
+		_rule.process ();
+
 		// picking UI Object
 		if (Picking (_ui_camera, layer_ui_0) == false) {
 			// picking 3D Object

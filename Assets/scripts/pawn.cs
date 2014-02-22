@@ -49,4 +49,8 @@ public class pawn : MonoBehaviour {
 	public void initPawn( ) {
 		Debug.Log (_name + " " + _hp + " " + _mp + " " + _sp);
 	}
+
+	public void process( ) {
+
+	}
 }
