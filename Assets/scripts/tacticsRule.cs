@@ -7,18 +7,27 @@ public class tacticsRule {
 	public const int _tile_width = 16;
 	public const int _tile_height = 16;
 
-	private ArrayList _listTile = null;
-	private ArrayList _listAlly = null;
-	private ArrayList _listEnemy = null;
+	// datas
+	private ArrayList _listTile = null; // tile list
+	private ArrayList _listAlly = null; // ally object list
+	private ArrayList _listEnemy = null; // enemy(AI or Network Player) object list
 
-	private tile _select = null;
-	private GameObject _target = null;
+	// select
+	private tile _select = null; // select tile
+	private GameObject _target = null; // target object
 
-	private GameObject _dialog = null;
+	// UI
+	private GameObject _dialog = null; // dialog ui
 
+	/*
+	 * static function
+	 * 
+	 * 
+	 */
 	public static tacticsRule get( ) {
 		if (_rule == null) {
 			_rule = new tacticsRule ();
+			_rule.init();
 		}
 
 		return _rule;
@@ -29,12 +38,29 @@ public class tacticsRule {
 		bar.GetComponentInChildren<TextMesh>().text = msg;
 	}
 
-	public bool makeTile( ) {
-		if (_listTile != null) {
-			return true;
-		}
-
+	/*
+	 * init & clear
+	 */
+	void init( ) {
+		// make list
 		_listTile = new ArrayList ();
+		_listAlly = new ArrayList ();
+		_listEnemy = new ArrayList ();
+	}
+
+	void clear( ) {
+		_listTile.Clear ();
+		_listAlly.Clear ();
+		_listEnemy.Clear ();
+
+	}
+
+	/*
+	 * tile function
+	 * 
+	 * 
+	 */
+	public bool makeTile( ) {
 
 		int hw = _tile_width / 2;
 		int hh = _tile_height / 2;
@@ -127,6 +153,9 @@ public class tacticsRule {
 
 	}
 
+	/*
+	 * touch (mouse) picking funciton
+	 */
 	public void picking( GameObject obj ) {
 		tile p = obj.GetComponent<tile> ();
 		if (p == null) {
@@ -134,7 +163,6 @@ public class tacticsRule {
 		}
 
 		if (p.isPawn () == false) {
-
 			if(_select != null) {
 				if(p._select != tile.SELECT_NONE) {
 					// move
@@ -227,12 +255,18 @@ public class tacticsRule {
 		}
 	}
 
+	/*
+	 * object move
+	 */
 	public void move( Vector2 vec ) {
 		Vector3 moveDir = new Vector3 (vec.x, 0.0f, vec.y);
 		Camera.main.transform.TransformDirection (moveDir);
 		Camera.main.transform.position += (moveDir * 0.1f);
 	}
 
+	/*
+	 * Pawn function
+	 */
 	GameObject makePawnObject( JSONNode v ) {
 		int x = v["x"].AsInt;
 		int y = v["y"].AsInt;
@@ -303,15 +337,6 @@ public class tacticsRule {
 	}
 
 	public bool makePawn( ) {
-		if (_listAlly != null) {
-			_listAlly.Clear();
-		}
-		_listAlly = new ArrayList ();
-
-		if (_listEnemy != null) {
-			_listEnemy.Clear();
-		}
-		_listEnemy = new ArrayList ();
 
 		string txt;
 		if (readTxt ("json/test_stage", out txt) == true) {
@@ -331,6 +356,9 @@ public class tacticsRule {
 		return true;
 	}
 
+	/*
+	 * text file read function (for JSON)
+	 */
 	bool readTxt( string path, out string txt ) {
 		TextAsset ta = (TextAsset)Resources.Load (path) as TextAsset;
 		if (ta == null) {
@@ -343,7 +371,9 @@ public class tacticsRule {
 		return true;
 	}
 
-	// dialog
+	/*
+	 * UI
+	 */
 	public void makeDialog( ) {
 		_dialog = (GameObject)MonoBehaviour.Instantiate(Resources.Load("prefab/sp_dialog", typeof(GameObject)));
 

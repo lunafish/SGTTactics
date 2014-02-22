@@ -19,6 +19,7 @@ public class tactics : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		_rule = tacticsRule.get ();
+
 		// test code
 		_rule.makeTile ();
 		_rule.makePawn ();
